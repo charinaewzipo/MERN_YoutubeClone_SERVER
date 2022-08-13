@@ -20,13 +20,12 @@ const connect = () => {
     });
 };
 
-const whitelist = [
-  "http://localhost:3000",
-  "https://client-youtubeclone.herokuapp.com/",
-];
-corsOptions = { origin: "https://client-youtubeclone.herokuapp.com" };
-
+const corsOptions = {
+  origin: "https://client-youtubeclone.herokuapp.com/",
+  optionsSuccessStatus: 200,
+};
 app.use(cors(corsOptions));
+app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
