@@ -21,6 +21,7 @@ const connect = () => {
 };
 
 //Cors Configuration - Start
+app.use(express.json());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -34,7 +35,6 @@ app.use((req, res, next) => {
   next();
 });
 //Cors Configuration - End
-app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
