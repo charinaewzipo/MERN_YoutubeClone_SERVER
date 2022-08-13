@@ -21,7 +21,7 @@ const connect = () => {
 };
 
 const corsOptions = {
-  origin: "https://client-youtubeclone.herokuapp.com/",
+  origin: "*",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
