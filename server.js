@@ -6,6 +6,7 @@ import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/comments.js";
 import authRoutes from "./routes/auth.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 const app = express();
 dotenv.config();
 const connect = () => {
@@ -18,8 +19,26 @@ const connect = () => {
       throw err;
     });
 };
+
+const whitelist = [
+  "http://localhost:3000",
+  "https://client-youtubeclone.herokuapp.com/",
+];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(cookieParser());
+
 app.use("/api/users", userRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/comments", commentRoutes);
