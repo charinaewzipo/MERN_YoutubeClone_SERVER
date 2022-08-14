@@ -32,7 +32,7 @@ export const signin = async (req, res, next) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT);
     res
       .cookie("access_token", token, {
-        httpOnly: true,
+        httpOnly: true, // try this
       })
       .status(200)
       .json(others);

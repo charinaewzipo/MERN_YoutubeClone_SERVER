@@ -19,7 +19,24 @@ const connect = () => {
       throw err;
     });
 };
-app.use(cors());
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+//   })
+// );
+app.use(function (req, res, next) {
+  res.header("Content-Type", "application/json;charset=UTF-8");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+app.use(cookieParser());
 app.use(express.json());
 // //Cors Configuration - Start
 // app.use((req, res, next) => {
@@ -35,7 +52,6 @@ app.use(express.json());
 //   next();
 // });
 // //Cors Configuration - End
-app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api/videos", videoRoutes);
